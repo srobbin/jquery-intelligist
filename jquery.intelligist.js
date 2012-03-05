@@ -1,6 +1,6 @@
 /*
  * Intelligist
- * Version 1.0
+ * Version 1.0.1
  * http://srobbin.com/jquery-plugins/intelligist/
  *
  * a jQuery plugin that makes it easy to share multiple, executable GitHub gists
@@ -105,13 +105,18 @@
                 if( settings.exec ) {                    
                     // Determine the file type by the raw file suffix
                     var $raw = $gist.find('a[href^="https://gist.github.com/raw/"]')
-                        , href = $raw.attr('href')
-                        , suffix = href.split('.').pop()
-                        , gist = $gist.find('.gist-data').text();
+                      , href = $raw.attr('href')
+                      , suffix = href.split('.').pop()
+                      , cleaner = /[^A-Za-z 0-9\"\.,\?''!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g
+                      , $code = $gist.find('.gist-data');
                         
-                    // Strip out non-ascii chars
-                    // Note: This is probably overkill, but we'll finesse later
-                    gist = gist.replace(/[^A-Za-z 0-9 \"\.,\?''!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g, '');
+                    // Fetch and clean the gist
+                    var gist = $.map( $code.find('.line'), function (line) {
+                        // Strip out HTML and non-ascii characters
+                        line = $(line).text();
+                        return line.replace(cleaner, '');
+                    });
+                    gist = gist.join('\n');
                     
                     // What to do?
                     switch( suffix ) {

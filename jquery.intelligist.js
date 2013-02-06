@@ -1,6 +1,6 @@
 /*
  * Intelligist
- * Version 1.0.1
+ * Version 1.0.2
  * http://srobbin.com/jquery-plugins/intelligist/
  *
  * a jQuery plugin that makes it easy to share multiple, executable GitHub gists
@@ -104,7 +104,7 @@
                 // Should we execute this code?
                 if( settings.exec ) {                    
                     // Determine the file type by the raw file suffix
-                    var $raw = $gist.find('a[href^="https://gist.github.com/raw/"]')
+                    var $raw = $gist.find('a[href^="https://gist.github.com/"]').filter('[href*="/raw/"]')
                       , href = $raw.attr('href')
                       , suffix = href.split('.').pop()
                       , cleaner = /[^A-Za-z 0-9\"\.,\?''!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g

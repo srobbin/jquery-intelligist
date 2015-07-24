@@ -1,6 +1,6 @@
 /*
  * Intelligist
- * Version 1.0.4
+ * Version 1.0.5
  * http://srobbin.com/jquery-plugins/intelligist/
  *
  * a jQuery plugin that makes it easy to share multiple, executable GitHub gists
@@ -112,7 +112,7 @@
                       , $code = $gist.find('.gist-data');
 
                     // Fetch and clean the gist
-                    var gist = $.map( $code.find('.line'), function (line) {
+                    var gist = $.map( $code.find('.js-file-line'), function (line) {
                         // Strip out HTML and non-ascii characters
                         line = $(line).text();
                         return line.replace(cleaner, '');
